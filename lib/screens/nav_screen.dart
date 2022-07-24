@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_youtube_clone/screens/home_screen.dart';
 
 class NavScreen extends StatefulWidget {
   const NavScreen({Key? key}) : super(key: key);
@@ -12,9 +13,7 @@ class NavScreen extends StatefulWidget {
 class _NavScreenState extends State<NavScreen> {
   int _currentIndex = 0;
   final List<Widget> _screens = [
-    const Scaffold(
-      body: Center(child: Text('Home')),
-    ),
+    const HomeScreen(),
     const Scaffold(
       body: Center(child: Text('Search')),
     ),
