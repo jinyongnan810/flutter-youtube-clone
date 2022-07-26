@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_youtube_clone/data.dart';
 import 'package:flutter_youtube_clone/screens/home_screen.dart';
+
+final selectedVideoProvider = StateProvider<Video?>((_) => null);
 
 class NavScreen extends StatefulWidget {
   const NavScreen({Key? key}) : super(key: key);
@@ -66,16 +70,22 @@ class _NavScreenState extends State<NavScreen> {
                 label: 'Library',
               ),
             ]),
-        body: Stack(
-            children: _screens
-                .asMap()
-                .map((index, screen) => MapEntry(
-                    index,
-                    Offstage(
-                      offstage: index != _currentIndex,
-                      child: screen,
-                    )))
-                .values
-                .toList()));
+        body: Consumer(
+          builder: ((context, ref, child) {
+            final selectedVideo = ref.watch(selectedVideoProvider);
+            print(selectedVideo?.id);
+            return Stack(
+                children: _screens
+                    .asMap()
+                    .map((index, screen) => MapEntry(
+                        index,
+                        Offstage(
+                          offstage: index != _currentIndex,
+                          child: screen,
+                        )))
+                    .values
+                    .toList());
+          }),
+        ));
   }
 }

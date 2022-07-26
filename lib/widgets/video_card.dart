@@ -3,36 +3,43 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_youtube_clone/data.dart';
+import 'package:flutter_youtube_clone/screens/nav_screen.dart';
 import 'package:timeago/timeago.dart' as timeago;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class VideoCard extends StatelessWidget {
+class VideoCard extends ConsumerWidget {
   final Video video;
   const VideoCard({Key? key, required this.video}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       children: [
-        Stack(children: [
-          Image.network(
-            video.thumbnailUrl,
-            fit: BoxFit.cover,
-            height: 220,
-            width: double.infinity,
-          ),
-          Positioned(
-            bottom: 10,
-            right: 10,
-            child: Container(
-              padding: const EdgeInsets.all(10),
-              color: Colors.black54,
-              child: Text(
-                video.duration,
-                style: const TextStyle(color: Colors.white, fontSize: 20),
+        GestureDetector(
+          onTap: () {
+            ref.read(selectedVideoProvider.notifier).state = video;
+          },
+          child: Stack(children: [
+            Image.network(
+              video.thumbnailUrl,
+              fit: BoxFit.cover,
+              height: 220,
+              width: double.infinity,
+            ),
+            Positioned(
+              bottom: 10,
+              right: 10,
+              child: Container(
+                padding: const EdgeInsets.all(10),
+                color: Colors.black54,
+                child: Text(
+                  video.duration,
+                  style: const TextStyle(color: Colors.white, fontSize: 20),
+                ),
               ),
             ),
-          ),
-        ]),
+          ]),
+        ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
