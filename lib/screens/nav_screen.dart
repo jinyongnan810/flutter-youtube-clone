@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_youtube_clone/data.dart';
 import 'package:flutter_youtube_clone/screens/home_screen.dart';
+import 'package:flutter_youtube_clone/screens/video_screen.dart';
 import 'package:miniplayer/miniplayer.dart';
 
 final selectedVideoProvider = StateProvider<Video?>((_) => null);
@@ -100,6 +101,10 @@ class _NavScreenState extends State<NavScreen> {
                           if (selectedVideo == null) {
                             return const SizedBox.shrink();
                           }
+                          if (height > _playerMinHeight + 50) {
+                            return const VideoScreen();
+                          }
+
                           return Container(
                               color: Theme.of(context).scaffoldBackgroundColor,
                               child: Column(

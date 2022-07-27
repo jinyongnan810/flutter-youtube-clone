@@ -10,7 +10,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class VideoCard extends ConsumerWidget {
   final Video video;
-  const VideoCard({Key? key, required this.video}) : super(key: key);
+  final VoidCallback? onTap;
+  const VideoCard({Key? key, required this.video, this.onTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -22,6 +24,7 @@ class VideoCard extends ConsumerWidget {
             final miniPlayer =
                 ref.read(miniplayerControllerProvider.notifier).state;
             miniPlayer.animateToHeight(state: PanelState.MAX);
+            onTap?.call();
           },
           child: Stack(children: [
             Image.network(
