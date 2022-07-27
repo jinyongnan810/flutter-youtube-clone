@@ -4,6 +4,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_youtube_clone/data.dart';
 import 'package:flutter_youtube_clone/screens/nav_screen.dart';
+import 'package:miniplayer/miniplayer.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -18,6 +19,9 @@ class VideoCard extends ConsumerWidget {
         GestureDetector(
           onTap: () {
             ref.read(selectedVideoProvider.notifier).state = video;
+            final miniPlayer =
+                ref.read(miniplayerControllerProvider.notifier).state;
+            miniPlayer.animateToHeight(state: PanelState.MAX);
           },
           child: Stack(children: [
             Image.network(
